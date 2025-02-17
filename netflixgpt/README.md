@@ -3,6 +3,11 @@
 
 - create react app
 - config tailwind css
+- Setting up file structures and routes 
+- Header
+- Login form
+- Signup (may use FORMIC to bulid long forms)
+- Validation in form
 
 
 # features
@@ -22,3 +27,8 @@
     - SearchBar
     - Movie Suggestion
     
+
+
+
+# key shortcuts :-
+    - rafce = react arrow function componenet export
