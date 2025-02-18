@@ -8,7 +8,11 @@
 - Login form
 - Signup (may use FORMIC to bulid long forms)
 - Validation in form
-
+- deploy project on firebase
+- create sign in and sign up 
+- implement sign in and sign up
+- create the redux store with user slice
+- 
 
 # features
 - Login /SignUp
