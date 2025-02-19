@@ -4,8 +4,11 @@ import { checkValidData } from '../utils/validates.js';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase.js';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice.js';
 
 const Login = () => {
+    const dispatch=useDispatch();
     const navigate = useNavigate();
     const [isSigninForm, setIsSigninForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -36,7 +39,15 @@ const Login = () => {
                     // Update user profile with name
                     updateProfile(user, {
                         displayName: name.current.value,
+                        photoURL : 'https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp',
                     }).then(() => {
+                        const { uid, email, displayName ,photoURL} = auth.currentUser;
+                                        dispatch(addUser({ 
+                                            uid:uid, 
+                                            email:email, 
+                                            displayName : displayName, 
+                                            photoURL: photoURL 
+                                        }));
                         console.log("User profile updated!");
                         navigate("/browse");
                     }).catch((error) => {
