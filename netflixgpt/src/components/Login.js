@@ -3,13 +3,12 @@ import Header from './Header.js';
 import { checkValidData } from '../utils/validates.js';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase.js';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice.js';
+import { LOGIN_BG, USER_AVATAR } from '../utils/consts.js';
 
 const Login = () => {
     const dispatch=useDispatch();
-    const navigate = useNavigate();
     const [isSigninForm, setIsSigninForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -39,7 +38,7 @@ const Login = () => {
                     // Update user profile with name
                     updateProfile(user, {
                         displayName: name.current.value,
-                        photoURL : 'https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp',
+                        photoURL : USER_AVATAR,
                     }).then(() => {
                         const { uid, email, displayName ,photoURL} = auth.currentUser;
                                         dispatch(addUser({ 
@@ -49,7 +48,6 @@ const Login = () => {
                                             photoURL: photoURL 
                                         }));
                         console.log("User profile updated!");
-                        navigate("/browse");
                     }).catch((error) => {
                         setErrorMessage("Failed to update profile: " + error.message);
                     });
@@ -66,62 +64,66 @@ const Login = () => {
                     // Signed in
                     const user = userCredential.user;
                     console.log(user);
-                    navigate("/browse"); // Navigate to /browse after sign-in
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
                     setErrorMessage("Email or password is not matched");
                 });
         }
     };
 
     return (
-        <div className=''>
+        <div className='relative w-full h-screen'>
             <Header />
-            <div className='absolute'>
+            
+            {/* Background Image with Overlay */}
+            <div className='absolute top-0 left-0 w-full h-full'>
                 <img
-                    className='min-h-screen min-w-full'
-                    src='https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_small.jpg'
+                    className='w-full h-full object-cover'
+                    src={LOGIN_BG}
                     alt='background_image'
                 />
+                {/* Dark Overlay */}
+                <div className='absolute top-0 left-0 w-full h-full bg-black opacity-50'></div>
             </div>
+
+            {/* Login Form */}
             <form
-                onSubmit={handleButtonClick} // Attach the handler to the form's onSubmit event
-                className='p-12 w-3/12 text-white my-36 mx-auto bg-opacity-80 right-0 left-0 bg-black absolute'
+                onSubmit={handleButtonClick}
+                className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-20 w-4/12 text-white bg-black bg-opacity-65 rounded-lg '
             >
-                <h1 className='font-bold text-3xl py-4'>{isSigninForm ? "Sign In" : "Sign Up"}</h1>
+                <h1 className='font-bold text-4xl py-6'>{isSigninForm ? "Sign In" : "Sign Up"}</h1>
                 {!isSigninForm && (
                     <input
                         ref={name}
                         type='text'
                         placeholder='Name'
-                        className='p-4 my-4 w-full bg-gray-700'
+                        className='p-6 text-xl my-4 w-full bg-transparent border rounded-md '
                     />
                 )}
                 <input
                     ref={email}
                     type='text'
-                    placeholder='Email Address'
-                    className='p-4 my-4 w-full bg-gray-700'
+                    placeholder='Email or mobile number'
+                    className='p-6 my-4 text-xl w-full bg-transparent border rounded-md '
                 />
                 <input
                     ref={password}
                     type='password'
                     placeholder='Password'
-                    className='p-4 my-4 w-full bg-gray-700'
+                    className='p-6 my-4 text-xl w-full bg-transparent border rounded-md '
                 />
                 <p className='text-red-500 font-bold text-lg py-2'>{errorMessage}</p>
-                <button type='submit' className='p-4 my-6 bg-red-700 rounded-lg w-full'>
+                <button type='submit' className='p-3 font-medium text-xl bg-red-700 rounded-lg w-full'>
                     {isSigninForm ? "Sign In" : "Sign Up"}
                 </button>
-                <p className='py-4 cursor-pointer' onClick={toggleSiginForm}>
+                <p className='py-7 text-2xl cursor-pointer' onClick={toggleSiginForm}>
                     {isSigninForm
                         ? "New to Netflix? Sign up now."
                         : "Already registered? Go to Sign In"}
                 </p>
             </form>
         </div>
+
     );
 };
 
