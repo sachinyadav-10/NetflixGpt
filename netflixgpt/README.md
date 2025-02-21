@@ -26,7 +26,15 @@
 - fetch data for trailer
 - update store with trailer vedio data
 - embded the youtube vedio and make it mutte and autoplay
+- built secondary component
+- build movie list 
+- build movie card 
+- TMDB image cdn url 
+- make the browser page amazing with tailwind css
+- usePopular coustom hook
 - 
+
+
 # features
 - Login /SignUp
     - SignIn

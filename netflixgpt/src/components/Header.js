@@ -7,57 +7,63 @@ import { addUser, removeUser } from '../utils/userSlice';
 import { LOGO_NTEFLIX } from '../utils/consts';
 
 const Header = () => {
-  
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    signOut(auth).then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-      navigate("/error");
-    });
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch(() => {
+        navigate("/error");
+      });
   };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const { uid, email, displayName ,photoURL} = user;
-            dispatch(addUser({ 
-                uid:uid, 
-                email:email, 
-                displayName : displayName, 
-                photoURL: photoURL 
-            })
-        );
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(addUser({ uid, email, displayName, photoURL }));
         navigate("/browse");
-        } else {
-            dispatch(removeUser());
-            navigate("/");
-        }
-    }); 
-       // Cleanup function to unsubscribe from the listener
-       return () => unsubscribe();
-      }, [dispatch, navigate]);
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+
+    // Cleanup function to unsubscribe from the listener
+    return () => unsubscribe();
+  }, [dispatch, navigate]);
+
   return (
-    <div className='w-screen flex justify-between px-8 py-2 z-10 bg-gradient-to-b from-black absolute'>
+    <header className="fixed w-full h-16 bg-black bg-opacity-70 flex justify-between items-center px-12 py-3 z-50">
+      {/* Netflix Logo */}
       <img 
-        className='max-w-56 mx-36 my-1' 
-        src={LOGO_NTEFLIX}
-        alt='Netflix Logo'
+        className="w-36 cursor-pointer" 
+        src={LOGO_NTEFLIX} 
+        alt="Netflix Logo" 
+        onClick={() => navigate("/browse")}
       />
-      <div className='p-2 flex'>
+
+      {/* Profile & Sign Out */}
+      <div className="flex items-center space-x-4">
         {user?.photoURL && (
           <img 
-            className='w-12 h-12 rounded-lg' 
+            className="w-10 h-10 rounded-lg cursor-pointer hover:opacity-80 transition-opacity" 
             src={user.photoURL} 
             alt="User Profile"
           />
         )}
-        <button onClick={handleSignOut} className='font-bold text-white px-2'>(Sign Out)</button>
+        <button 
+          onClick={handleSignOut} 
+          className="text-white font-semibold px-4 py-1 rounded bg-red-600 hover:bg-red-700 transition-colors"
+        >
+          Sign Out
+        </button>
       </div>
-    </div>
+    </header>
   );
 };
 
