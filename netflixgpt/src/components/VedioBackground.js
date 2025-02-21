@@ -1,24 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import useMovieTrailer from "../hooks/UseMovieTrailer";  // Ensure correct file name
+import useMovieTrailer from "../hooks/UseMovieTrailer"; 
 
 const VideoBackground = ({ movieId }) => {
-  const trailerVedio = useSelector((store) => store.movies?.trailerVedio);  // Fix: Matched Redux state name
+  const trailerVedio = useSelector((store) => store.movies?.trailerVedio); 
 
   // Fetch trailer and update the store
   useMovieTrailer(movieId);
 
   return (
-    <div className="w-screen " >
+    <div className="w-screen h-screen overflow-hidden">
       {trailerVedio ? (
         <iframe
-        className="w-screen aspect-video"
-          src={`https://www.youtube.com/embed/${trailerVedio?.key}?&autoplay=1&mute=1&rel=0`}  // Fix: Corrected state variable name
+          className="absolute top-0 left-0 w-screen h-screen"
+          src={`https://www.youtube.com/embed/${trailerVedio?.key}?autoplay=1&mute=1&loop=1&playlist=${trailerVedio?.key}&controls=0&showinfo=0`}
           title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="autoplay; encrypted-media; fullscreen"
+          frameBorder="0"
         ></iframe>
       ) : (
-        <p>Loading trailer...</p>
+        <p className="text-white text-center">Loading trailer...</p>
       )}
     </div>
   );

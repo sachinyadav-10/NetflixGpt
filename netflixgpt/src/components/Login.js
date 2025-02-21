@@ -47,7 +47,6 @@ const Login = () => {
                                             displayName : displayName, 
                                             photoURL: photoURL 
                                         }));
-                        console.log("User profile updated!");
                     }).catch((error) => {
                         setErrorMessage("Failed to update profile: " + error.message);
                     });
@@ -63,7 +62,7 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed in
                     const user = userCredential.user;
-                    // console.log(user);
+                   
                 })
                 .catch((error) => {
                     setErrorMessage("Email or password is not matched");

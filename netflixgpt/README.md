@@ -32,7 +32,10 @@
 - TMDB image cdn url 
 - make the browser page amazing with tailwind css
 - usePopular coustom hook
-- 
+- gpt search page
+- gpt search bar
+- (*FEATURE) multi-language support
+- integrate GPT API
 
 
 # features
