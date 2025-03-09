@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { API_OPTIONS } from "../utils/consts";
 import { addTrailerVideo } from "../utils/moviesSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useMovieTrailer = (movieId) => {
     const dispatch = useDispatch();
+    const trailerVedio= useSelector(store=>store.movies.trailerVedio)
 
     const getMovieVideos = async () => {
         const response = await fetch(
@@ -20,10 +21,10 @@ const useMovieTrailer = (movieId) => {
     };
 
     useEffect(() => {
-        if (movieId) {  // Ensure movieId is present before fetching
-            getMovieVideos();
+        if (movieId) { 
+           !trailerVedio&& getMovieVideos();
         }
-    }, [movieId]);  // Fix: Added dependency to ensure re-fetching when movieId changes
+    }, [movieId]); 
 };
 
 export default useMovieTrailer;

@@ -6,9 +6,9 @@ const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
 
   return (
-    <div className="bg-black text-white px-8">
+    <div className="bg-black text-white md:px-8">
       {/* Main Section Overlapping Effect */}
-      <div className="-mt-32 relative z-20 space-y-8">
+      <div className="-mt-80 md:-mt-32 relative z-20 space-y-1 md:space-y-8">
         <MovieList title="Now Playing" movies={movies.nowPlayingMovies} />
       </div>
 

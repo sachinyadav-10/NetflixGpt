@@ -36,7 +36,16 @@
 - gpt search bar
 - (*FEATURE) multi-language support
 - integrate GPT API
-
+- Gpt search
+- Gpt search API call
+- fetched gpt movie suggestions form TMDB
+- created Gpt slice and added data
+- reused moie list component to make movie   
+  suggestion container
+- Memoization
+- Added .env file
+- Adding .env to gitignore
+- Made our Site Responsive
 
 # features
 - Login /SignUp

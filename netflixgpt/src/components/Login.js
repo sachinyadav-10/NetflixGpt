@@ -88,7 +88,7 @@ const Login = () => {
             {/* Login Form */}
             <form
                 onSubmit={handleButtonClick}
-                className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-20 w-4/12 text-white bg-black bg-opacity-65 rounded-lg '
+                className='absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-20 md:w-4/12 text-white bg-black bg-opacity-65 rounded-lg '
             >
                 <h1 className='font-bold text-4xl py-6'>{isSigninForm ? "Sign In" : "Sign Up"}</h1>
                 {!isSigninForm && (

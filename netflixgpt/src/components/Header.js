@@ -46,10 +46,10 @@ const Header = () => {
     dispatch(changeLanguage(e.target.value))
   };
   return (
-    <header className="fixed w-screen bg-gradient-to-b from-black flex justify-between items-center px-8 py-3 z-50">
+    <header className="fixed w-screen bg-gradient-to-b from-black flex flex-col md:flex-row justify-between items-center px-8 py-3 z-50">
       {/* Netflix Logo */}
       <img 
-        className="w-36 cursor-pointer" 
+        className="w-36 mx-auto md:mx-0 cursor-pointer" 
         src={LOGO_NTEFLIX} 
         alt="Netflix Logo" 
         onClick={() => navigate("/browse")}
@@ -73,7 +73,7 @@ const Header = () => {
             {SUPPORTED_LANGUAGE.map((language)=><option key={language.identifier} value={language.identifier}>{language.name}</option>)}
           </select>)}
           <img 
-            className="w-10 h-10 rounded-lg cursor-pointer hover:opacity-80 transition-opacity" 
+            className="hidden md:inline-block w-10 h-10 rounded-lg cursor-pointer hover:opacity-80 transition-opacity" 
             src={user?.photoURL} 
             alt="User Profile"
           />
